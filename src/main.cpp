@@ -7,17 +7,17 @@
 
 struct Okno
 {
-    int x, y;                     // координаты левого верхнего угла
-    int w, h;                     // ширина и высота окна
-    bool aktivno;                 // активно ли окно 
-    bool zakryto;                 // помечено ли окно на закрытие
-    std::string nazvanie;         // имя окна 
-    bool peretaskivaetsya;        // перетаскивается ли окно сейчас
-    int otnosX, otnosY;           // смещение клика относительно угла окна
-    int vstryaskaTimer;           // таймер для анимации встряски
-    std::string tekstVOkne;       // текст внутри окна
-    bool izmenenieRazmera;        // режим изменения размера
-    int otnosW, otnosH;           // смещение для изменения размера
+    int x, y;                     
+    int w, h;                     
+    bool aktivno;                
+    bool zakryto;                
+    std::string nazvanie;       
+    bool peretaskivaetsya;      
+    int otnosX, otnosY;       
+    int vstryaskaTimer;          
+    std::string tekstVOkne;    
+    bool izmenenieRazmera;       
+    int otnosW, otnosH;         
 };
 
 int main()
@@ -33,11 +33,9 @@ int main()
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
     sf::Font shrift;
-    if (!shrift.loadFromFile("arial.ttf"))
-    {
-        // Шрифт не загрузился — текста не будет видно
-    }
-
+     if (!shrift.loadFromFile("arial.ttf")) {}
+     // РЁСЂРёС„С‚ РЅРµ Р·Р°РіСЂСѓР·РёС‚СЃСЏ - С‚РµРєСЃС‚Р° РЅРµ Р±СѓРґРµС‚ РІРёРґРЅРѕ
+    
     while (desktop.isOpen())
     {
         sf::Event sobytie;
@@ -49,7 +47,7 @@ int main()
                 desktop.close();
             }
 
-            // СОЗДАНИЕ НОВОГО ОКНА (клавиша N)
+            // РќРѕРІРѕРµ РѕРєРЅРѕ (РєР»Р°РІРёС€Р° N)
             if (sobytie.type == sf::Event::KeyPressed)
             {
                 if (sobytie.key.code == sf::Keyboard::N)
@@ -82,10 +80,10 @@ int main()
                 }
             }
 
-            // НАЖАТИЕ КНОПКИ МЫШИ
+            // РќРђР–РђРўРР• РљРќРћРџРљР РњР«РЁР
             if (sobytie.type == sf::Event::MouseButtonPressed)
             {
-                // Сброс перед новым кликом
+                // РЎР±СЂРѕСЃ РїРµСЂРµРґ РЅРѕРІС‹Рј РєР»РёРєРѕРј
                 indeksPeretaskivaemogoOkna = -1;
                 indeksIzmeneniyaRazmera = -1;
                 for (size_t j = 0; j < okna.size(); ++j)
@@ -99,7 +97,7 @@ int main()
                     int myshX = sobytie.mouseButton.x;
                     int myshY = sobytie.mouseButton.y;
 
-                    // Поиск окна, по которому кликнули (для встряски)
+                    // РџРѕРёСЃРє РѕРєРЅР° РіРґРµ Р±С‹Р» РєР»РёРє 
                     int indexKliknutogoOkna = -1;
                     for (int i = static_cast<int>(okna.size()) - 1; i >= 0; --i)
                     {
@@ -113,7 +111,7 @@ int main()
                         }
                     }
 
-                    // Обработка действий с самого верхнего окна
+                     // РћР±СЂР°Р±РѕС‚РєР° РґРµР№СЃС‚РІРёР№ СЃ РІРµСЂС…РЅРµРіРѕ РѕРєРЅР°
                     for (int i = static_cast<int>(okna.size()) - 1; i >= 0; --i)
                     {
                         if (okna[i].zakryto) continue;
@@ -124,13 +122,13 @@ int main()
                         int knopkaX = okna[i].x + okna[i].w - knopkaW - 5;
                         int knopkaY = okna[i].y + 3;
 
-                        // Зона изменения размера (правый нижний угол, 15x15 пикселей)
+                        // Р—РѕРЅР° РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂР° РѕРєРЅР° 
                         int zonaRazmeraW = 15;
                         int zonaRazmeraH = 15;
                         int zonaX = okna[i].x + okna[i].w - zonaRazmeraW;
                         int zonaY = okna[i].y + okna[i].h - zonaRazmeraH;
 
-                        // 1. Проверка на изменение размера
+                        // 1. РџСЂРѕРІРµСЂРєР° РЅР° РёР·РјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂР°
                         if (myshX >= zonaX && myshX <= zonaX + zonaRazmeraW &&
                             myshY >= zonaY && myshY <= zonaY + zonaRazmeraH)
                         {
@@ -141,7 +139,7 @@ int main()
                             break;
                         }
 
-                        // 2. Проверка на кнопку закрытия
+                         // 2. РџСЂРѕРІРµСЂРєР° РЅР° РєРЅРѕРїРєСѓ Р·Р°РєСЂС‹С‚РёСЏ
                         if (myshX >= knopkaX && myshX <= knopkaX + knopkaW &&
                             myshY >= knopkaY && myshY <= knopkaY + knopkaH)
                         {
@@ -149,11 +147,10 @@ int main()
                             break;
                         }
 
-                        // 3. Проверка заголовка на перетаскивание
+                        // 3. РџСЂРѕРІРµСЂРєР° Р·Р°РіРѕР»РѕРІРєР° РЅР° РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёРµ
                         if (myshX >= okna[i].x && myshX <= okna[i].x + okna[i].w &&
                             myshY >= okna[i].y && myshY <= okna[i].y + vysotaZagolovka)
                         {
-                            // Поднимаем окно наверх
                             Okno vremennoe = okna[i];
                             okna.erase(okna.begin() + i);
                             okna.push_back(vremennoe);
@@ -173,7 +170,7 @@ int main()
                         }
                     }
 
-                    // Встряска для кликнутого окна
+                    // Р’СЃС‚СЂСЏСЃРєР° РґР»СЏ РєР»РёРєРЅСѓС‚РѕРіРѕ РѕРєРЅР°
                     if (indexKliknutogoOkna != -1 && !okna[indexKliknutogoOkna].zakryto)
                     {
                         int vysotaZagolovka = 25;
@@ -186,8 +183,7 @@ int main()
                 }
             }
 
-            // ДВОЙНОЙ КЛИК МЫШИ (для ввода текста в тело окна)
-            // Событие MouseButtonPressed счётчик кликов
+            // Р”Р’РћР™РќРћР™ РљР›РРљ РњР«РЁР Р”Р›РЇ Р’Р’РћР”Рђ РўР•РљРЎРўРђ
             static int schetchikDvojnogo = 0;
             static sf::Clock chasyDvojnogo;
             static int poslednijIndeks = -1;
@@ -197,7 +193,7 @@ int main()
                 int myshX = sobytie.mouseButton.x;
                 int myshY = sobytie.mouseButton.y;
 
-                // Находим окно, по которому кликнули
+                // РїРѕРёСЃРє РєР»РёРєРЅСѓС‚РѕРіРѕ РѕРєРЅР°
                 int indeksDvojnogo = -1;
                 for (int i = static_cast<int>(okna.size()) - 1; i >= 0; --i)
                 {
@@ -210,15 +206,14 @@ int main()
                     }
                 }
 
-                // Проверяем двойной клик
+                // РїСЂРѕРІРµСЂРєР° РєР»РёРєР°
                 if (indeksDvojnogo != -1 && indeksDvojnogo == poslednijIndeks && chasyDvojnogo.getElapsedTime().asMilliseconds() < 300)
                 {
-                    // Двойной клик! Проверяем, что кликнули по телу (не по заголовку)
+                    // РїСЂРѕРІРµСЂРєР° РІС‹СЃРѕС‚С‹ РєР»РёРєР°
                     int vysotaZagolovka = 25;
                     if (myshY >= okna[indeksDvojnogo].y + vysotaZagolovka &&
                         myshY <= okna[indeksDvojnogo].y + okna[indeksDvojnogo].h)
                     {
-                        // Открываем консоль для ввода текста
                         std::string novyjTekst;
                         std::cout << "Vvedite tekst dlya okna " << okna[indeksDvojnogo].nazvanie << ": ";
                         std::getline(std::cin, novyjTekst);
@@ -240,7 +235,7 @@ int main()
                 }
             }
 
-            // ОТПУСКАНИЕ КНОПКИ МЫШИ
+            // РћРўРџРЈРЎРљРђРќРР• РљРќРћРџРљР РњР«РЁР
             if (sobytie.type == sf::Event::MouseButtonReleased)
             {
                 if (sobytie.mouseButton.button == sf::Mouse::Left)
@@ -255,10 +250,10 @@ int main()
                 }
             }
 
-            // ДВИЖЕНИЕ МЫШИ
+            // Р”РІРёР¶РµРЅРёРµ РјС‹С€Рё
             if (sobytie.type == sf::Event::MouseMoved)
             {
-                // Перетаскивание окна
+                // РџРµСЂРµС‚Р°СЃРєРёРІР°РЅРёРµ РѕРєРЅР°
                 if (indeksPeretaskivaemogoOkna != -1 &&
                     indeksPeretaskivaemogoOkna < static_cast<int>(okna.size()))
                 {
@@ -276,7 +271,7 @@ int main()
                     }
                 }
 
-                // Изменение размера окна
+                // РР·РјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР°
                 if (indeksIzmeneniyaRazmera != -1 &&
                     indeksIzmeneniyaRazmera < static_cast<int>(okna.size()))
                 {
@@ -298,7 +293,7 @@ int main()
                 }
             }
 
-            // Удаление закрытых окон
+            // СѓРґР°Р»РµРЅРёРµ Р·Р°РєСЂС‹С‚С‹С… РѕРєРѕРЅ
             for (int i = static_cast<int>(okna.size()) - 1; i >= 0; --i)
             {
                 if (okna[i].zakryto)
@@ -311,12 +306,12 @@ int main()
 
         desktop.clear(sf::Color(50, 50, 80));
 
-        // ОТРИСОВКА ВСЕХ ОКОН
+        // РћРўР РРЎРћР’РљРђ РћРљРћРќ
         for (size_t i = 0; i < okna.size(); ++i)
         {
             if (!okna[i].zakryto)
             {
-                // Встряска
+                // РІСЃС‚СЂСЏСЃРєР°
                 int sdvigX = 0;
                 if (okna[i].vstryaskaTimer > 0)
                 {
@@ -328,7 +323,7 @@ int main()
                 int tekY = okna[i].y;
                 int vysotaZagolovka = 25;
 
-                // Основной прямоугольник окна
+                // РѕСЃРЅРѕРІРЅРѕР№ Р±Р»РѕРє РѕРєРЅР°
                 sf::RectangleShape prjamougolnik(sf::Vector2f(okna[i].w, okna[i].h));
                 prjamougolnik.setPosition(tekX, tekY);
                 prjamougolnik.setFillColor(cveta[i]);
@@ -336,10 +331,10 @@ int main()
                 prjamougolnik.setOutlineColor(sf::Color::White);
                 desktop.draw(prjamougolnik);
 
-                // Текст внутри окна
+                // С‚РµРєСЃС‚ РІРЅСѓС‚СЂРё РѕРєРЅР°
                 sf::Text vnutrenniyTekst;
                 vnutrenniyTekst.setFont(shrift);
-                // Обрезаем длинный текст
+                // РѕР±СЂРµР·РєР° РґР»РёРЅРЅРѕРіРѕ С‚РµРєСЃС‚Р°
                 std::string dlyaOtobrazheniya = okna[i].tekstVOkne;
                 if (dlyaOtobrazheniya.length() > 25)
                 {
@@ -351,13 +346,13 @@ int main()
                 vnutrenniyTekst.setPosition(tekX + 5, tekY + vysotaZagolovka + 5);
                 desktop.draw(vnutrenniyTekst);
 
-                // Заголовок
+                // Р·Р°РіРѕР»РѕРІРѕРє 
                 sf::RectangleShape zagolovok(sf::Vector2f(okna[i].w, vysotaZagolovka));
                 zagolovok.setPosition(tekX, tekY);
                 zagolovok.setFillColor(sf::Color(80, 80, 120));
                 desktop.draw(zagolovok);
 
-                // Текст заголовка
+                // С‚РµРєСЃС‚ Р·Р°РіРѕР»РѕРІРєР°
                 sf::Text tekst;
                 tekst.setFont(shrift);
                 tekst.setString(okna[i].nazvanie);
@@ -366,7 +361,7 @@ int main()
                 tekst.setPosition(tekX + 5, tekY + 4);
                 desktop.draw(tekst);
 
-                // Кнопка закрытия
+                // РєРЅРѕРїРєР° Р·Р°РіРѕР»РѕРІРєР°
                 int knopkaW = 20;
                 int knopkaH = 18;
                 sf::RectangleShape knopka(sf::Vector2f(knopkaW, knopkaH));
@@ -376,7 +371,7 @@ int main()
                 knopka.setOutlineColor(sf::Color::White);
                 desktop.draw(knopka);
 
-                // Текст [X] на кнопке
+                // С‚РµРєСЃС‚ РЅР° РєРЅРѕРїРєРµ Р·Р°РіРѕР»РѕРІРєР°
                 sf::Text krestik;
                 krestik.setFont(shrift);
                 krestik.setString("X");
@@ -385,7 +380,7 @@ int main()
                 krestik.setPosition(tekX + okna[i].w - knopkaW - 5 + 6, tekY + 4);
                 desktop.draw(krestik);
 
-                // Индикатор изменения размера (маленький треугольник в правом нижнем углу)
+                // РёРЅРґРёРєР°С‚РѕСЂ РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂР°
                 sf::ConvexShape indikatorRazmera;
                 indikatorRazmera.setPointCount(3);
                 indikatorRazmera.setPoint(0, sf::Vector2f(tekX + okna[i].w - 12, tekY + okna[i].h - 2));

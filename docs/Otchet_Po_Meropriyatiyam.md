@@ -21,7 +21,7 @@
 
 ### Startup HUB
 
-<img width="640" height="480" alt="STARTUP HUB" src="https://github.com/user-attachments/assets/cde7e46b-967e-405d-88df-cb642e62cacc" />
+
 
 
 
